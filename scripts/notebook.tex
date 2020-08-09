@@ -1,0 +1,1577 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Battle of the neighborhoods - Munich}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Problem Description}\label{problem-description}
+
+    Rents in Munich have increased drastically over the last years. It get's
+harder for small businesses to find a spot within the city that is a)
+not covered by a strong competitor already or b) too expensive. This
+analysis should provide people starting a business with the necessairy
+insights on where to start.
+
+    \section{Data Description}\label{data-description}
+
+    We will use data on rental prices for the respective neighborhoods and
+and make use of the Foursquare API. The data for rental prices will be
+scraped from a website and Latitude and Longitude will be added with the
+help of a geolocation csv file.
+
+    \section{Methdology}\label{methdology}
+
+We will import relevant libraries first, scrape the data from different
+resources second. We will then do some basic ETL to merge and clean the
+data from the different datasets. Afterwards exploratory analysis will
+be performed to get an understanding of the data. We will then derive
+insights from rental prices, number of inhabitants per area and the
+number of venues for the respective area. Afterwards we will develop a
+simple regression model to get an understanding of how the variables
+impact the number of venues in a certain areas. Areas that are below the
+predicted number of venues will then be a good starting point to start a
+business.
+
+    \section{Importing libraries and scraping the
+data}\label{importing-libraries-and-scraping-the-data}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{c+c1}{\PYZsh{}Importing relevant libraries}
+         \PY{k+kn}{import} \PY{n+nn}{bs4} \PY{k}{as} \PY{n+nn}{bs}
+         \PY{k+kn}{import} \PY{n+nn}{urllib}\PY{n+nn}{.}\PY{n+nn}{request} 
+         \PY{k+kn}{import} \PY{n+nn}{time}
+         \PY{k+kn}{from} \PY{n+nn}{datetime} \PY{k}{import} \PY{n}{datetime} 
+         \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+         \PY{k+kn}{import} \PY{n+nn}{json}
+         \PY{k+kn}{import} \PY{n+nn}{requests}
+         \PY{k+kn}{import} \PY{n+nn}{os}
+         \PY{k+kn}{import} \PY{n+nn}{folium}
+         \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{c+c1}{\PYZsh{}Load data }
+        \PY{n}{url} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{https://suedbayerische\PYZhy{}immobilien.de/Mietpreise\PYZhy{}Muenchen\PYZhy{}Stadtteile}\PY{l+s+s1}{\PYZsq{}}
+        \PY{n}{df}\PY{o}{=}\PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}html}\PY{p}{(}\PY{n}{url}\PY{p}{,} \PY{n}{header}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+        \PY{n}{df}\PY{o}{.}\PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Neighborhood}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Rent per M2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        \PY{n}{df}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}2}]:}                                          Neighborhood  Rent per M2
+        0                                    Altstadt – Lehel         1915
+        1                                           Schwabing         1876
+        2                   Maxvorstadt – Universitätsviertel         1861
+        3                      Ludwigsvorstadt – Isarvorstadt         1748
+        4                                         Maxvorstadt         1741
+        5                                      Schwabing-West         1731
+        6                                     Au – Haidhausen         1696
+        7                         Altbogenhausen – Herzogpark         1691
+        8                                         Nymphenburg         1647
+        9                                    Schwanthalerhöhe         1605
+        10                                         Harlaching         1574
+        11                                          Neuhausen         1567
+        12                                           Sendling         1532
+        13                                       Untergiesing         1511
+        14                              Alte Heide – Hirschau         1473
+        15                                        Obergiesing         1466
+        16  Thalkirchen – Obersendling – Forstenried – Für{\ldots}         1459
+        17                        Oberföhring – Englschalking         1421
+        18                                      Milbertshofen         1414
+        19                                            Moosach         1410
+        20                                               Laim         1407
+        21                               Pasing – Obermenzing         1389
+        22                                             Hadern         1382
+        23                                   Trudering – Riem         1379
+        24                                Sendling – Westpark         1375
+        25                               Ramersdorf – Perlach         1369
+        26                                       Berg am Laim         1362
+        27                                           Freimann         1361
+        28                         Johanneskirchen – Daglfing         1358
+        29                                            Am Hart         1348
+        30                              Allach – Untermenzing         1285
+        31                     Aubing – Lochhausen – Langwied         1278
+        32                           Feldmoching – Hasenbergl         1219
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{df}\PY{o}{.}\PY{n}{info}\PY{p}{(}\PY{p}{)}
+        \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{df}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 33 entries, 0 to 32
+Data columns (total 2 columns):
+Neighborhood    33 non-null object
+Rent per M2     33 non-null int64
+dtypes: int64(1), object(1)
+memory usage: 608.0+ bytes
+---
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}3}]:}        Rent per M2
+        count    33.000000
+        mean   1510.606061
+        std     185.027353
+        min    1219.000000
+        25\%    1375.000000
+        50\%    1459.000000
+        75\%    1647.000000
+        max    1915.000000
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{c+c1}{\PYZsh{}Get Latitude and Longitude}
+        \PY{n}{geo\PYZus{}data} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}excel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Geospatial\PYZus{}Coordinates.xls}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{geo\PYZus{}data}
+        \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Latitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{geo\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Latitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}
+        \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Longitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{geo\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Longitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}
+        \PY{n}{df}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}4}]:}                                          Neighborhood  Rent per M2   Latitude  \textbackslash{}
+        0                                    Altstadt – Lehel         1915  48.139130   
+        1                                           Schwabing         1876  48.167450   
+        2                   Maxvorstadt – Universitätsviertel         1861  48.147629   
+        3                      Ludwigsvorstadt – Isarvorstadt         1748  48.132440   
+        4                                         Maxvorstadt         1741  48.151092   
+        5                                      Schwabing-West         1731  48.168271   
+        6                                     Au – Haidhausen         1696  48.128753   
+        7                         Altbogenhausen – Herzogpark         1691  48.149398   
+        8                                         Nymphenburg         1647  48.158257   
+        9                                    Schwanthalerhöhe         1605  48.134230   
+        10                                         Harlaching         1574  48.088293   
+        11                                          Neuhausen         1567  48.156335   
+        12                                           Sendling         1532  48.118012   
+        13                                       Untergiesing         1511  48.114963   
+        14                              Alte Heide – Hirschau         1473  48.174773   
+        15                                        Obergiesing         1466  48.111156   
+        16  Thalkirchen – Obersendling – Forstenried – Für{\ldots}         1459  48.097802   
+        17                        Oberföhring – Englschalking         1421  48.156458   
+        18                                      Milbertshofen         1414  48.182385   
+        19                                            Moosach         1410  48.179895   
+        20                                               Laim         1407  48.139551   
+        21                               Pasing – Obermenzing         1389  48.147785   
+        22                                             Hadern         1382  48.118064   
+        23                                   Trudering – Riem         1379  48.123175   
+        24                                Sendling – Westpark         1375  48.117984   
+        25                               Ramersdorf – Perlach         1369  48.113917   
+        26                                       Berg am Laim         1362  48.123483   
+        27                                           Freimann         1361  48.191969   
+        28                         Johanneskirchen – Daglfing         1358  48.148570   
+        29                                            Am Hart         1348  48.197245   
+        30                              Allach – Untermenzing         1285  48.195994   
+        31                     Aubing – Lochhausen – Langwied         1278  48.158437   
+        32                           Feldmoching – Hasenbergl         1219  48.213898   
+        
+            Longitude  
+        0   11.580220  
+        1   11.570380  
+        2   11.568050  
+        3   11.556090  
+        4   11.562418  
+        5   11.569873  
+        6   11.590536  
+        7   11.603792  
+        8   11.503297  
+        9   11.539034  
+        10  11.565078  
+        11  11.531386  
+        12  11.539083  
+        13  11.570189  
+        14  11.603891  
+        15  11.588909  
+        16  11.520807  
+        17  11.642028  
+        18  11.575043  
+        19  11.510571  
+        20  11.502166  
+        21  11.460701  
+        22  11.481842  
+        23  11.664078  
+        24  11.516719  
+        25  11.615699  
+        26  11.633451  
+        27  11.614384  
+        28  11.649227  
+        29  11.571674  
+        30  11.457013  
+        31  11.414066  
+        32  11.539273  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{c+c1}{\PYZsh{}Load number of inhabitants per neighborhood}
+        \PY{n}{url} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{https://suedbayerische\PYZhy{}immobilien.de/Einwohner\PYZhy{}Muenchen\PYZhy{}Stadtteile}\PY{l+s+s1}{\PYZsq{}}
+        \PY{n}{inhabitants}\PY{o}{=}\PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}html}\PY{p}{(}\PY{n}{url}\PY{p}{,} \PY{n}{header}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+        \PY{n}{inhabitants}\PY{o}{.}\PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Neighborhood}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{No of inhabitants}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Percentage}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        \PY{n}{inhabitants}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Neighborhood}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{inhabitants}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Neighborhood}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{str}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{:}\PY{p}{]}
+        \PY{n}{inhabitants} \PY{o}{=} \PY{n}{inhabitants}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Percentage}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+        \PY{n}{inhabitants} \PY{o}{=} \PY{n}{inhabitants}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{l+m+mi}{25}\PY{p}{)}
+        \PY{n}{inhabitants}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}5}]:}                                          Neighborhood No of inhabitants
+        0                                Ramersdorf - Perlach           108.244
+        1                             Neuhausen - Nymphenburg            95.906
+        2   Thalkirchen - Obersendling - Forstenried - Für{\ldots}            90.790
+        3                                         Bogenhausen            82.138
+        4                             Milbertshofen - Am Hart            73.617
+        5                                Pasing - Obermenzing            70.783
+        6                                Schwabing - Freimann            69.676
+        7                                    Trudering - Riem            67.009
+        8                                      Schwabing West            65.892
+        9                                     Au - Haidhausen            59.752
+        10                           Feldmoching - Hasenbergl            59.391
+        11                                Sendling - Westpark            55.405
+        12                                               Laim            54.030
+        13                          Untergiesing - Harlaching            51.937
+        14                                        Maxvorstadt            51.642
+        15                                            Moosach            51.537
+        16                        Obergiesing - Fasanengarten            51.499
+        17                     Ludwigsvorstadt - Isarvorstadt            50.620
+        18                                             Hadern            48.945
+        19                                       Berg am Laim            43.068
+        20                     Aubing - Lochhausen - Langwied            42.305
+        21                                           Sendling            39.953
+        22                              Allach - Untermenzing            30.737
+        23                                   Schwanthalerhöhe            29.663
+        24                                   Altstadt - Lehel            20.422
+\end{Verbatim}
+            
+    It seems like the list contains less values than the one created before.
+We will compare the dataframes and merge the data two have one combined
+dataset. Since the names differ too much for merging the dataframes
+right away, we do some magic within Excel in between an create a
+CSV-File.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{c+c1}{\PYZsh{}Merge Inhabitants data with with rental prices and coordinates}
+         \PY{n}{inhabitants\PYZus{}all\PYZus{}areas} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}excel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Inhabitants\PYZus{}Per\PYZus{}Area.xls}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{inhabitants\PYZus{}all\PYZus{}areas}
+         \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Inhabitants}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{inhabitants\PYZus{}all\PYZus{}areas}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Inhabitants}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}
+         \PY{n}{df}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}10}]:}                                          Neighborhood  Rent per M2   Latitude  \textbackslash{}
+         0                                    Altstadt – Lehel         1915  48.139130   
+         1                                           Schwabing         1876  48.167450   
+         2                   Maxvorstadt – Universitätsviertel         1861  48.147629   
+         3                      Ludwigsvorstadt – Isarvorstadt         1748  48.132440   
+         4                                         Maxvorstadt         1741  48.151092   
+         5                                      Schwabing-West         1731  48.168271   
+         6                                     Au – Haidhausen         1696  48.128753   
+         7                         Altbogenhausen – Herzogpark         1691  48.149398   
+         8                                         Nymphenburg         1647  48.158257   
+         9                                    Schwanthalerhöhe         1605  48.134230   
+         10                                         Harlaching         1574  48.088293   
+         11                                          Neuhausen         1567  48.156335   
+         12                                           Sendling         1532  48.118012   
+         13                                       Untergiesing         1511  48.114963   
+         14                              Alte Heide – Hirschau         1473  48.174773   
+         15                                        Obergiesing         1466  48.111156   
+         16  Thalkirchen – Obersendling – Forstenried – Für{\ldots}         1459  48.097802   
+         17                        Oberföhring – Englschalking         1421  48.156458   
+         18                                      Milbertshofen         1414  48.182385   
+         19                                            Moosach         1410  48.179895   
+         20                                               Laim         1407  48.139551   
+         21                               Pasing – Obermenzing         1389  48.147785   
+         22                                             Hadern         1382  48.118064   
+         23                                   Trudering – Riem         1379  48.123175   
+         24                                Sendling – Westpark         1375  48.117984   
+         25                               Ramersdorf – Perlach         1369  48.113917   
+         26                                       Berg am Laim         1362  48.123483   
+         27                                           Freimann         1361  48.191969   
+         28                         Johanneskirchen – Daglfing         1358  48.148570   
+         29                                            Am Hart         1348  48.197245   
+         30                              Allach – Untermenzing         1285  48.195994   
+         31                     Aubing – Lochhausen – Langwied         1278  48.158437   
+         32                           Feldmoching – Hasenbergl         1219  48.213898   
+         
+             Longitude  Inhabitants  
+         0   11.580220         2042  
+         1   11.570380        69676  
+         2   11.568050            0  
+         3   11.556090        50620  
+         4   11.562418        51642  
+         5   11.569873        65892  
+         6   11.590536        59752  
+         7   11.603792        82138  
+         8   11.503297        95906  
+         9   11.539034        29663  
+         10  11.565078            0  
+         11  11.531386            0  
+         12  11.539083        39953  
+         13  11.570189        51937  
+         14  11.603891            0  
+         15  11.588909        51499  
+         16  11.520807        90790  
+         17  11.642028            0  
+         18  11.575043        73617  
+         19  11.510571        51537  
+         20  11.502166        54030  
+         21  11.460701        70783  
+         22  11.481842        48945  
+         23  11.664078        67009  
+         24  11.516719        55405  
+         25  11.615699       108244  
+         26  11.633451        43068  
+         27  11.614384            0  
+         28  11.649227            0  
+         29  11.571674            0  
+         30  11.457013        30737  
+         31  11.414066        42305  
+         32  11.539273        59391  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{c+c1}{\PYZsh{}Dropping Rows that are zero}
+         \PY{n}{df} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{n}{df}\PY{o}{.}\PY{n}{Inhabitants} \PY{o}{!=} \PY{l+m+mi}{0}\PY{p}{]}
+         \PY{n}{df}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}14}]:}                                          Neighborhood  Rent per M2   Latitude  \textbackslash{}
+         0                                    Altstadt – Lehel         1915  48.139130   
+         1                                           Schwabing         1876  48.167450   
+         3                      Ludwigsvorstadt – Isarvorstadt         1748  48.132440   
+         4                                         Maxvorstadt         1741  48.151092   
+         5                                      Schwabing-West         1731  48.168271   
+         6                                     Au – Haidhausen         1696  48.128753   
+         7                         Altbogenhausen – Herzogpark         1691  48.149398   
+         8                                         Nymphenburg         1647  48.158257   
+         9                                    Schwanthalerhöhe         1605  48.134230   
+         12                                           Sendling         1532  48.118012   
+         13                                       Untergiesing         1511  48.114963   
+         15                                        Obergiesing         1466  48.111156   
+         16  Thalkirchen – Obersendling – Forstenried – Für{\ldots}         1459  48.097802   
+         18                                      Milbertshofen         1414  48.182385   
+         19                                            Moosach         1410  48.179895   
+         20                                               Laim         1407  48.139551   
+         21                               Pasing – Obermenzing         1389  48.147785   
+         22                                             Hadern         1382  48.118064   
+         23                                   Trudering – Riem         1379  48.123175   
+         24                                Sendling – Westpark         1375  48.117984   
+         25                               Ramersdorf – Perlach         1369  48.113917   
+         26                                       Berg am Laim         1362  48.123483   
+         30                              Allach – Untermenzing         1285  48.195994   
+         31                     Aubing – Lochhausen – Langwied         1278  48.158437   
+         32                           Feldmoching – Hasenbergl         1219  48.213898   
+         
+             Longitude  Inhabitants  
+         0   11.580220         2042  
+         1   11.570380        69676  
+         3   11.556090        50620  
+         4   11.562418        51642  
+         5   11.569873        65892  
+         6   11.590536        59752  
+         7   11.603792        82138  
+         8   11.503297        95906  
+         9   11.539034        29663  
+         12  11.539083        39953  
+         13  11.570189        51937  
+         15  11.588909        51499  
+         16  11.520807        90790  
+         18  11.575043        73617  
+         19  11.510571        51537  
+         20  11.502166        54030  
+         21  11.460701        70783  
+         22  11.481842        48945  
+         23  11.664078        67009  
+         24  11.516719        55405  
+         25  11.615699       108244  
+         26  11.633451        43068  
+         30  11.457013        30737  
+         31  11.414066        42305  
+         32  11.539273        59391  
+\end{Verbatim}
+            
+    The Data is now ready for Analysis
+
+    \section{First Analysis of the Data}\label{first-analysis-of-the-data}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{n}{hist} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{column}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Rent per M2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{bins}\PY{o}{=}\PY{l+m+mi}{7}\PY{p}{,} \PY{n}{alpha} \PY{o}{=} \PY{l+m+mf}{0.8}\PY{p}{)}
+         \PY{n}{hist}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}16}]:} array([[<matplotlib.axes.\_subplots.AxesSubplot object at 0x123c6a400>]],
+               dtype=object)
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    We can see a concentration of rental prices around 13.00-14.50 EUR, with
+12 of 33 neighborhood in that bin
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{c+c1}{\PYZsh{}How do rental prices and inhabitants per area correlate?}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{lmplot}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Rent per M2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Inhabitants}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{df}\PY{p}{,} \PY{n}{fit\PYZus{}reg}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}20}]:} <seaborn.axisgrid.FacetGrid at 0x1a25bd7128>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_18_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Seems like there's no obvious relationship between the \# of inhabitants
+and the Rent per M2
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{c+c1}{\PYZsh{}Creating a map to get a visual overview of where the areas are}
+         \PY{n}{center\PYZus{}lat}\PY{o}{=}\PY{n}{df}\PY{o}{.}\PY{n}{Latitude}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+         \PY{n}{center\PYZus{}long}\PY{o}{=}\PY{n}{df}\PY{o}{.}\PY{n}{Longitude}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} create map of Munich using latitude and longitude values}
+         \PY{n}{map\PYZus{}to} \PY{o}{=} \PY{n}{folium}\PY{o}{.}\PY{n}{Map}\PY{p}{(}\PY{n}{location}\PY{o}{=}\PY{p}{[}\PY{n}{center\PYZus{}lat}\PY{p}{,} \PY{n}{center\PYZus{}long}\PY{p}{]}\PY{p}{,} \PY{n}{zoom\PYZus{}start}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} add markers to map}
+         \PY{k}{for} \PY{n}{lat}\PY{p}{,} \PY{n}{lng}\PY{p}{,} \PY{n}{neighborhood} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Latitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Longitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Neighborhood}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+             \PY{n}{label} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{neighborhood}\PY{p}{)}
+             \PY{n}{label} \PY{o}{=} \PY{n}{folium}\PY{o}{.}\PY{n}{Popup}\PY{p}{(}\PY{n}{label}\PY{p}{,} \PY{n}{parse\PYZus{}html}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+             \PY{n}{folium}\PY{o}{.}\PY{n}{CircleMarker}\PY{p}{(}
+                 \PY{p}{[}\PY{n}{lat}\PY{p}{,} \PY{n}{lng}\PY{p}{]}\PY{p}{,}
+                 \PY{n}{radius}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,}
+                 \PY{n}{popup}\PY{o}{=}\PY{n}{label}\PY{p}{,}
+                 \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                 \PY{n}{fill}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,}
+                 \PY{n}{fill\PYZus{}color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsh{}3186cc}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                 \PY{n}{fill\PYZus{}opacity}\PY{o}{=}\PY{l+m+mf}{0.7}\PY{p}{,}
+                 \PY{n}{parse\PYZus{}html}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{o}{.}\PY{n}{add\PYZus{}to}\PY{p}{(}\PY{n}{map\PYZus{}to}\PY{p}{)}  
+         
+         \PY{n}{map\PYZus{}to}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}22}]:} <folium.folium.Map at 0x1a25ce7240>
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}34}]:} \PY{c+c1}{\PYZsh{}Connecting to the Foursquare API}
+         \PY{n}{CLIENT\PYZus{}ID} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{FUZFUOSOAV35IPWPTAYMF2HV3EEX3IQKUQ1JPPA1ZHYL4GMN}\PY{l+s+s1}{\PYZsq{}} 
+         \PY{n}{CLIENT\PYZus{}SECRET} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Y2S3SBIZMUD3V2L4Z5EFKLH2EINWA2SOELDPTKVD0HRFM4O2}\PY{l+s+s1}{\PYZsq{}} 
+         \PY{n}{VERSION} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{20180605}\PY{l+s+s1}{\PYZsq{}} \PY{c+c1}{\PYZsh{} Foursquare API version}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Your credentails:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CLIENT\PYZus{}ID: }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n}{CLIENT\PYZus{}ID}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CLIENT\PYZus{}SECRET:}\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n}{CLIENT\PYZus{}SECRET}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Your credentails:
+CLIENT\_ID: FUZFUOSOAV35IPWPTAYMF2HV3EEX3IQKUQ1JPPA1ZHYL4GMN
+CLIENT\_SECRET:Y2S3SBIZMUD3V2L4Z5EFKLH2EINWA2SOELDPTKVD0HRFM4O2
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}56}]:} \PY{k}{def} \PY{n+nf}{getNearbyVenues}\PY{p}{(}\PY{n}{names}\PY{p}{,} \PY{n}{latitudes}\PY{p}{,} \PY{n}{longitudes}\PY{p}{)}\PY{p}{:}
+             \PY{n}{radius}\PY{o}{=}\PY{l+m+mi}{500}
+             \PY{n}{LIMIT}\PY{o}{=}\PY{l+m+mi}{100}
+             \PY{n}{venues\PYZus{}list}\PY{o}{=}\PY{p}{[}\PY{p}{]}
+             \PY{k}{for} \PY{n}{name}\PY{p}{,} \PY{n}{lat}\PY{p}{,} \PY{n}{lng} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{names}\PY{p}{,} \PY{n}{latitudes}\PY{p}{,} \PY{n}{longitudes}\PY{p}{)}\PY{p}{:}
+                 \PY{n+nb}{print}\PY{p}{(}\PY{n}{name}\PY{p}{)}
+                     
+                 \PY{c+c1}{\PYZsh{} create the API request URL}
+                 \PY{n}{url} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{https://api.foursquare.com/v2/venues/explore?\PYZam{}client\PYZus{}id=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZam{}client\PYZus{}secret=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZam{}v=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZam{}ll=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{,}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZam{}radius=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZam{}limit=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}
+                     \PY{n}{CLIENT\PYZus{}ID}\PY{p}{,} 
+                     \PY{n}{CLIENT\PYZus{}SECRET}\PY{p}{,} 
+                     \PY{n}{VERSION}\PY{p}{,} 
+                     \PY{n}{lat}\PY{p}{,} 
+                     \PY{n}{lng}\PY{p}{,} 
+                     \PY{n}{radius}\PY{p}{,} 
+                     \PY{n}{LIMIT}\PY{p}{)}
+                     
+                 \PY{c+c1}{\PYZsh{} make the GET request}
+                 \PY{n}{results} \PY{o}{=} \PY{n}{requests}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{n}{url}\PY{p}{)}\PY{o}{.}\PY{n}{json}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{response}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{groups}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{items}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+                 
+                 \PY{c+c1}{\PYZsh{} return only relevant information for each nearby venue}
+                 \PY{n}{venues\PYZus{}list}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{[}\PY{p}{(}
+                     \PY{n}{name}\PY{p}{,} 
+                     \PY{n}{lat}\PY{p}{,} 
+                     \PY{n}{lng}\PY{p}{,} 
+                     \PY{n}{v}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{venue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} 
+                     \PY{n}{v}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{venue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{location}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lat}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} 
+                     \PY{n}{v}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{venue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{location}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lng}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}  
+                     \PY{n}{v}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{venue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{categories}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)} \PY{k}{for} \PY{n}{v} \PY{o+ow}{in} \PY{n}{results}\PY{p}{]}\PY{p}{)}
+         
+             \PY{n}{nearby\PYZus{}venues} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{[}\PY{n}{item} \PY{k}{for} \PY{n}{venue\PYZus{}list} \PY{o+ow}{in} \PY{n}{venues\PYZus{}list} \PY{k}{for} \PY{n}{item} \PY{o+ow}{in} \PY{n}{venue\PYZus{}list}\PY{p}{]}\PY{p}{)}
+             \PY{n}{nearby\PYZus{}venues}\PY{o}{.}\PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Neighborhood}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                           \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Neighborhood Latitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                           \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Neighborhood Longitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                           \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Venue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                           \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Venue Latitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                           \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Venue Longitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                           \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Venue Category}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+             
+             \PY{k}{return}\PY{p}{(}\PY{n}{nearby\PYZus{}venues}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}58}]:} \PY{n}{munich\PYZus{}venues} \PY{o}{=} \PY{n}{getNearbyVenues}\PY{p}{(}\PY{n}{names}\PY{o}{=}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Neighborhood}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
+                                            \PY{n}{latitudes}\PY{o}{=}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Latitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
+                                            \PY{n}{longitudes}\PY{o}{=}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Longitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+                                           \PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Altstadt – Lehel
+Schwabing
+Ludwigsvorstadt – Isarvorstadt
+Maxvorstadt
+Schwabing-West
+Au – Haidhausen
+Altbogenhausen – Herzogpark
+Nymphenburg
+Schwanthalerhöhe
+Sendling
+Untergiesing
+Obergiesing
+Thalkirchen – Obersendling – Forstenried – Fürstenried – Solln
+Milbertshofen
+Moosach
+Laim
+Pasing – Obermenzing
+Hadern
+Trudering – Riem
+Sendling – Westpark
+Ramersdorf – Perlach
+Berg am Laim
+Allach – Untermenzing
+Aubing – Lochhausen – Langwied
+Feldmoching – Hasenbergl
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}59}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{There are }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{ single categories.}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{munich\PYZus{}venues}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Venue Category}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+There are 162 single categories.
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}60}]:} \PY{n}{venue\PYZus{}data\PYZus{}grouped} \PY{o}{=} \PY{n}{munich\PYZus{}venues}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Neighborhood}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}
+         \PY{n}{venue\PYZus{}data\PYZus{}grouped} 
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}60}]:}                                                     Neighborhood Latitude  \textbackslash{}
+         Neighborhood                                                                
+         Allach – Untermenzing                                                   7   
+         Altbogenhausen – Herzogpark                                            20   
+         Altstadt – Lehel                                                      100   
+         Au – Haidhausen                                                        42   
+         Aubing – Lochhausen – Langwied                                          7   
+         Berg am Laim                                                            8   
+         Feldmoching – Hasenbergl                                               10   
+         Hadern                                                                  9   
+         Laim                                                                   21   
+         Ludwigsvorstadt – Isarvorstadt                                         42   
+         Maxvorstadt                                                            48   
+         Milbertshofen                                                          18   
+         Moosach                                                                26   
+         Nymphenburg                                                            12   
+         Obergiesing                                                            17   
+         Pasing – Obermenzing                                                   63   
+         Ramersdorf – Perlach                                                   14   
+         Schwabing                                                              25   
+         Schwabing-West                                                         19   
+         Schwanthalerhöhe                                                       47   
+         Sendling                                                               47   
+         Sendling – Westpark                                                     5   
+         Thalkirchen – Obersendling – Forstenried – Fürs{\ldots}                     15   
+         Trudering – Riem                                                       12   
+         Untergiesing                                                           26   
+         
+                                                             Neighborhood Longitude  \textbackslash{}
+         Neighborhood                                                                 
+         Allach – Untermenzing                                                    7   
+         Altbogenhausen – Herzogpark                                             20   
+         Altstadt – Lehel                                                       100   
+         Au – Haidhausen                                                         42   
+         Aubing – Lochhausen – Langwied                                           7   
+         Berg am Laim                                                             8   
+         Feldmoching – Hasenbergl                                                10   
+         Hadern                                                                   9   
+         Laim                                                                    21   
+         Ludwigsvorstadt – Isarvorstadt                                          42   
+         Maxvorstadt                                                             48   
+         Milbertshofen                                                           18   
+         Moosach                                                                 26   
+         Nymphenburg                                                             12   
+         Obergiesing                                                             17   
+         Pasing – Obermenzing                                                    63   
+         Ramersdorf – Perlach                                                    14   
+         Schwabing                                                               25   
+         Schwabing-West                                                          19   
+         Schwanthalerhöhe                                                        47   
+         Sendling                                                                47   
+         Sendling – Westpark                                                      5   
+         Thalkirchen – Obersendling – Forstenried – Fürs{\ldots}                      15   
+         Trudering – Riem                                                        12   
+         Untergiesing                                                            26   
+         
+                                                             Venue  Venue Latitude  \textbackslash{}
+         Neighborhood                                                                
+         Allach – Untermenzing                                   7               7   
+         Altbogenhausen – Herzogpark                            20              20   
+         Altstadt – Lehel                                      100             100   
+         Au – Haidhausen                                        42              42   
+         Aubing – Lochhausen – Langwied                          7               7   
+         Berg am Laim                                            8               8   
+         Feldmoching – Hasenbergl                               10              10   
+         Hadern                                                  9               9   
+         Laim                                                   21              21   
+         Ludwigsvorstadt – Isarvorstadt                         42              42   
+         Maxvorstadt                                            48              48   
+         Milbertshofen                                          18              18   
+         Moosach                                                26              26   
+         Nymphenburg                                            12              12   
+         Obergiesing                                            17              17   
+         Pasing – Obermenzing                                   63              63   
+         Ramersdorf – Perlach                                   14              14   
+         Schwabing                                              25              25   
+         Schwabing-West                                         19              19   
+         Schwanthalerhöhe                                       47              47   
+         Sendling                                               47              47   
+         Sendling – Westpark                                     5               5   
+         Thalkirchen – Obersendling – Forstenried – Fürs{\ldots}     15              15   
+         Trudering – Riem                                       12              12   
+         Untergiesing                                           26              26   
+         
+                                                             Venue Longitude  \textbackslash{}
+         Neighborhood                                                          
+         Allach – Untermenzing                                             7   
+         Altbogenhausen – Herzogpark                                      20   
+         Altstadt – Lehel                                                100   
+         Au – Haidhausen                                                  42   
+         Aubing – Lochhausen – Langwied                                    7   
+         Berg am Laim                                                      8   
+         Feldmoching – Hasenbergl                                         10   
+         Hadern                                                            9   
+         Laim                                                             21   
+         Ludwigsvorstadt – Isarvorstadt                                   42   
+         Maxvorstadt                                                      48   
+         Milbertshofen                                                    18   
+         Moosach                                                          26   
+         Nymphenburg                                                      12   
+         Obergiesing                                                      17   
+         Pasing – Obermenzing                                             63   
+         Ramersdorf – Perlach                                             14   
+         Schwabing                                                        25   
+         Schwabing-West                                                   19   
+         Schwanthalerhöhe                                                 47   
+         Sendling                                                         47   
+         Sendling – Westpark                                               5   
+         Thalkirchen – Obersendling – Forstenried – Fürs{\ldots}               15   
+         Trudering – Riem                                                 12   
+         Untergiesing                                                     26   
+         
+                                                             Venue Category  
+         Neighborhood                                                        
+         Allach – Untermenzing                                            7  
+         Altbogenhausen – Herzogpark                                     20  
+         Altstadt – Lehel                                               100  
+         Au – Haidhausen                                                 42  
+         Aubing – Lochhausen – Langwied                                   7  
+         Berg am Laim                                                     8  
+         Feldmoching – Hasenbergl                                        10  
+         Hadern                                                           9  
+         Laim                                                            21  
+         Ludwigsvorstadt – Isarvorstadt                                  42  
+         Maxvorstadt                                                     48  
+         Milbertshofen                                                   18  
+         Moosach                                                         26  
+         Nymphenburg                                                     12  
+         Obergiesing                                                     17  
+         Pasing – Obermenzing                                            63  
+         Ramersdorf – Perlach                                            14  
+         Schwabing                                                       25  
+         Schwabing-West                                                  19  
+         Schwanthalerhöhe                                                47  
+         Sendling                                                        47  
+         Sendling – Westpark                                              5  
+         Thalkirchen – Obersendling – Forstenried – Fürs{\ldots}              15  
+         Trudering – Riem                                                12  
+         Untergiesing                                                    26  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}61}]:} \PY{c+c1}{\PYZsh{}Let\PYZsq{}s add the number of venues to our original dataframe}
+         \PY{n}{venue\PYZus{}data\PYZus{}grouped} \PY{o}{=} \PY{n}{venue\PYZus{}data\PYZus{}grouped}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Neighborhood Latitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Neighborhood Longitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Venue Longitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Venue Latitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Venue Category}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{venue\PYZus{}data\PYZus{}grouped}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}61}]:}                                                     Venue
+         Neighborhood                                             
+         Allach – Untermenzing                                   7
+         Altbogenhausen – Herzogpark                            20
+         Altstadt – Lehel                                      100
+         Au – Haidhausen                                        42
+         Aubing – Lochhausen – Langwied                          7
+         Berg am Laim                                            8
+         Feldmoching – Hasenbergl                               10
+         Hadern                                                  9
+         Laim                                                   21
+         Ludwigsvorstadt – Isarvorstadt                         42
+         Maxvorstadt                                            48
+         Milbertshofen                                          18
+         Moosach                                                26
+         Nymphenburg                                            12
+         Obergiesing                                            17
+         Pasing – Obermenzing                                   63
+         Ramersdorf – Perlach                                   14
+         Schwabing                                              25
+         Schwabing-West                                         19
+         Schwanthalerhöhe                                       47
+         Sendling                                               47
+         Sendling – Westpark                                     5
+         Thalkirchen – Obersendling – Forstenried – Fürs{\ldots}     15
+         Trudering – Riem                                       12
+         Untergiesing                                           26
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}67}]:} \PY{c+c1}{\PYZsh{}...merging}
+         \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{merge}\PY{p}{(}\PY{n}{df}\PY{p}{,} \PY{n}{venue\PYZus{}data\PYZus{}grouped}\PY{p}{,} \PY{n}{on}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Neighborhood}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{how}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{outer}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{df}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}67}]:}                                          Neighborhood  Rent per M2   Latitude  \textbackslash{}
+         0                                    Altstadt – Lehel         1915  48.139130   
+         1                                           Schwabing         1876  48.167450   
+         2                      Ludwigsvorstadt – Isarvorstadt         1748  48.132440   
+         3                                         Maxvorstadt         1741  48.151092   
+         4                                      Schwabing-West         1731  48.168271   
+         5                                     Au – Haidhausen         1696  48.128753   
+         6                         Altbogenhausen – Herzogpark         1691  48.149398   
+         7                                         Nymphenburg         1647  48.158257   
+         8                                    Schwanthalerhöhe         1605  48.134230   
+         9                                            Sendling         1532  48.118012   
+         10                                       Untergiesing         1511  48.114963   
+         11                                        Obergiesing         1466  48.111156   
+         12  Thalkirchen – Obersendling – Forstenried – Für{\ldots}         1459  48.097802   
+         13                                      Milbertshofen         1414  48.182385   
+         14                                            Moosach         1410  48.179895   
+         15                                               Laim         1407  48.139551   
+         16                               Pasing – Obermenzing         1389  48.147785   
+         17                                             Hadern         1382  48.118064   
+         18                                   Trudering – Riem         1379  48.123175   
+         19                                Sendling – Westpark         1375  48.117984   
+         20                               Ramersdorf – Perlach         1369  48.113917   
+         21                                       Berg am Laim         1362  48.123483   
+         22                              Allach – Untermenzing         1285  48.195994   
+         23                     Aubing – Lochhausen – Langwied         1278  48.158437   
+         24                           Feldmoching – Hasenbergl         1219  48.213898   
+         
+             Longitude  Inhabitants  Venue  
+         0   11.580220         2042    100  
+         1   11.570380        69676     25  
+         2   11.556090        50620     42  
+         3   11.562418        51642     48  
+         4   11.569873        65892     19  
+         5   11.590536        59752     42  
+         6   11.603792        82138     20  
+         7   11.503297        95906     12  
+         8   11.539034        29663     47  
+         9   11.539083        39953     47  
+         10  11.570189        51937     26  
+         11  11.588909        51499     17  
+         12  11.520807        90790     15  
+         13  11.575043        73617     18  
+         14  11.510571        51537     26  
+         15  11.502166        54030     21  
+         16  11.460701        70783     63  
+         17  11.481842        48945      9  
+         18  11.664078        67009     12  
+         19  11.516719        55405      5  
+         20  11.615699       108244     14  
+         21  11.633451        43068      8  
+         22  11.457013        30737      7  
+         23  11.414066        42305      7  
+         24  11.539273        59391     10  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}68}]:} \PY{c+c1}{\PYZsh{}Let\PYZsq{}s look for correlations}
+         \PY{n}{df}\PY{o}{.}\PY{n}{corr}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}68}]:}              Rent per M2  Latitude  Longitude  Inhabitants     Venue
+         Rent per M2     1.000000 -0.093397   0.327951    -0.112285  0.607084
+         Latitude       -0.093397  1.000000  -0.292908    -0.074140 -0.098452
+         Longitude       0.327951 -0.292908   1.000000     0.174815  0.071478
+         Inhabitants    -0.112285 -0.074140   0.174815     1.000000 -0.461057
+         Venue           0.607084 -0.098452   0.071478    -0.461057  1.000000
+\end{Verbatim}
+            
+    We can observe a strong correlation between Venues and the Rent per M2,
+as well as the number of Venues and Inhabitants. The 2nd corerlation was
+expected, since a bigger area of the city (=more inhabitants) typically
+offers more room and opportunities for businesses. The correlation
+betweend geospatial data will not be observed, since it's probably
+random or noise.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}73}]:} \PY{n}{sns}\PY{o}{.}\PY{n}{lmplot}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Venue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Inhabitants}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{df}\PY{p}{,} \PY{n}{fit\PYZus{}reg}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{lmplot}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Venue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Rent per M2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{df}\PY{p}{,} \PY{n}{fit\PYZus{}reg}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}73}]:} <seaborn.axisgrid.FacetGrid at 0x1a262cc0f0>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_30_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_30_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}75}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{linear\PYZus{}model} \PY{k}{import} \PY{n}{LinearRegression}
+         \PY{n}{model} \PY{o}{=} \PY{n}{LinearRegression}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}50}]:} \PY{n}{munich\PYZus{}onehot} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{get\PYZus{}dummies}\PY{p}{(}\PY{n}{munich\PYZus{}venues}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Venue Category}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{n}{prefix}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{prefix\PYZus{}sep}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{munich\PYZus{}onehot}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}50}]:}      Afghan Restaurant  American Restaurant  Arcade  Art Museum  \textbackslash{}
+         0                    0                    0       0           0   
+         1                    0                    0       0           0   
+         2                    0                    0       0           0   
+         3                    0                    0       0           0   
+         4                    0                    0       0           0   
+         5                    0                    0       0           0   
+         6                    0                    0       0           0   
+         7                    0                    0       0           0   
+         8                    0                    0       0           0   
+         9                    0                    0       0           0   
+         10                   0                    0       0           0   
+         11                   0                    0       0           0   
+         12                   0                    0       0           0   
+         13                   0                    0       0           0   
+         14                   0                    0       0           0   
+         15                   0                    0       0           0   
+         16                   0                    0       0           0   
+         17                   0                    0       0           0   
+         18                   0                    0       0           0   
+         19                   0                    0       0           0   
+         20                   0                    0       0           0   
+         21                   0                    0       0           0   
+         22                   0                    0       0           0   
+         23                   0                    0       0           0   
+         24                   0                    0       0           0   
+         25                   0                    0       0           0   
+         26                   0                    0       0           0   
+         27                   0                    0       0           1   
+         28                   0                    0       0           0   
+         29                   0                    0       0           0   
+         ..                 {\ldots}                  {\ldots}     {\ldots}         {\ldots}   
+         630                  0                    0       0           0   
+         631                  0                    0       0           0   
+         632                  0                    0       0           0   
+         633                  0                    0       0           0   
+         634                  0                    0       0           0   
+         635                  0                    0       0           0   
+         636                  0                    0       0           0   
+         637                  0                    0       0           0   
+         638                  0                    0       0           0   
+         639                  0                    0       0           0   
+         640                  0                    0       0           0   
+         641                  0                    0       0           0   
+         642                  0                    0       0           0   
+         643                  0                    0       0           0   
+         644                  0                    0       0           0   
+         645                  0                    0       0           0   
+         646                  0                    0       0           0   
+         647                  0                    0       0           0   
+         648                  0                    0       0           0   
+         649                  0                    0       0           0   
+         650                  0                    0       0           0   
+         651                  0                    0       0           0   
+         652                  0                    0       0           0   
+         653                  0                    0       0           0   
+         654                  0                    0       0           0   
+         655                  0                    0       0           0   
+         656                  0                    0       0           0   
+         657                  0                    0       0           0   
+         658                  0                    0       0           0   
+         659                  0                    0       0           0   
+         
+              Asian Restaurant  Athletics \& Sports  Austrian Restaurant  BBQ Joint  \textbackslash{}
+         0                   0                   0                    0          0   
+         1                   0                   0                    0          0   
+         2                   0                   0                    0          0   
+         3                   0                   0                    0          0   
+         4                   0                   0                    0          0   
+         5                   0                   0                    0          0   
+         6                   0                   0                    0          0   
+         7                   0                   0                    0          0   
+         8                   0                   0                    0          0   
+         9                   0                   0                    0          0   
+         10                  0                   0                    0          0   
+         11                  0                   0                    0          0   
+         12                  0                   0                    0          0   
+         13                  0                   0                    0          0   
+         14                  0                   0                    0          0   
+         15                  0                   0                    0          0   
+         16                  0                   0                    0          0   
+         17                  0                   0                    0          0   
+         18                  0                   0                    0          0   
+         19                  0                   0                    0          0   
+         20                  0                   0                    0          0   
+         21                  0                   0                    0          0   
+         22                  0                   0                    0          0   
+         23                  0                   0                    0          0   
+         24                  0                   0                    0          0   
+         25                  0                   0                    0          0   
+         26                  0                   0                    0          0   
+         27                  0                   0                    0          0   
+         28                  0                   0                    0          0   
+         29                  0                   0                    0          0   
+         ..                {\ldots}                 {\ldots}                  {\ldots}        {\ldots}   
+         630                 0                   0                    0          0   
+         631                 0                   0                    0          0   
+         632                 0                   0                    0          0   
+         633                 0                   0                    0          0   
+         634                 0                   0                    0          0   
+         635                 0                   0                    0          0   
+         636                 0                   0                    0          0   
+         637                 0                   0                    0          0   
+         638                 0                   0                    0          0   
+         639                 0                   0                    0          0   
+         640                 0                   0                    0          0   
+         641                 0                   0                    0          0   
+         642                 0                   0                    0          0   
+         643                 0                   0                    0          0   
+         644                 0                   0                    0          0   
+         645                 0                   0                    0          0   
+         646                 0                   0                    0          0   
+         647                 0                   0                    0          0   
+         648                 0                   0                    0          0   
+         649                 0                   0                    0          0   
+         650                 0                   0                    0          0   
+         651                 0                   0                    0          0   
+         652                 0                   0                    0          0   
+         653                 0                   0                    0          0   
+         654                 0                   0                    0          0   
+         655                 0                   0                    0          0   
+         656                 0                   0                    0          0   
+         657                 0                   0                    0          0   
+         658                 0                   0                    0          0   
+         659                 0                   0                    0          0   
+         
+              Baby Store  Bagel Shop     {\ldots}       Tram Station  Trattoria/Osteria  \textbackslash{}
+         0             0           0     {\ldots}                  0                  0   
+         1             0           0     {\ldots}                  0                  0   
+         2             0           0     {\ldots}                  0                  0   
+         3             0           0     {\ldots}                  0                  0   
+         4             0           0     {\ldots}                  0                  0   
+         5             0           0     {\ldots}                  0                  0   
+         6             0           0     {\ldots}                  0                  0   
+         7             0           0     {\ldots}                  0                  0   
+         8             0           0     {\ldots}                  0                  0   
+         9             0           0     {\ldots}                  0                  0   
+         10            0           0     {\ldots}                  0                  0   
+         11            0           0     {\ldots}                  0                  0   
+         12            0           0     {\ldots}                  0                  0   
+         13            0           0     {\ldots}                  0                  0   
+         14            0           0     {\ldots}                  0                  0   
+         15            0           0     {\ldots}                  0                  0   
+         16            0           0     {\ldots}                  0                  0   
+         17            0           0     {\ldots}                  0                  0   
+         18            0           0     {\ldots}                  0                  0   
+         19            0           0     {\ldots}                  0                  0   
+         20            0           0     {\ldots}                  0                  0   
+         21            0           0     {\ldots}                  0                  0   
+         22            0           0     {\ldots}                  0                  0   
+         23            0           0     {\ldots}                  0                  0   
+         24            0           0     {\ldots}                  0                  0   
+         25            0           0     {\ldots}                  0                  0   
+         26            0           0     {\ldots}                  0                  0   
+         27            0           0     {\ldots}                  0                  0   
+         28            0           0     {\ldots}                  0                  0   
+         29            0           0     {\ldots}                  0                  0   
+         ..          {\ldots}         {\ldots}     {\ldots}                {\ldots}                {\ldots}   
+         630           0           0     {\ldots}                  0                  0   
+         631           0           0     {\ldots}                  0                  0   
+         632           0           0     {\ldots}                  0                  0   
+         633           0           0     {\ldots}                  0                  0   
+         634           0           0     {\ldots}                  0                  0   
+         635           0           0     {\ldots}                  0                  0   
+         636           0           0     {\ldots}                  0                  0   
+         637           0           0     {\ldots}                  0                  0   
+         638           0           0     {\ldots}                  0                  0   
+         639           0           0     {\ldots}                  0                  0   
+         640           0           0     {\ldots}                  0                  0   
+         641           0           0     {\ldots}                  0                  1   
+         642           0           0     {\ldots}                  0                  0   
+         643           0           0     {\ldots}                  0                  0   
+         644           0           0     {\ldots}                  0                  0   
+         645           0           0     {\ldots}                  0                  0   
+         646           0           0     {\ldots}                  0                  0   
+         647           0           0     {\ldots}                  0                  0   
+         648           0           0     {\ldots}                  0                  0   
+         649           0           0     {\ldots}                  0                  0   
+         650           0           0     {\ldots}                  0                  0   
+         651           0           0     {\ldots}                  0                  0   
+         652           0           0     {\ldots}                  0                  0   
+         653           0           0     {\ldots}                  0                  0   
+         654           0           0     {\ldots}                  0                  0   
+         655           0           0     {\ldots}                  0                  0   
+         656           0           0     {\ldots}                  0                  0   
+         657           0           0     {\ldots}                  0                  0   
+         658           0           0     {\ldots}                  0                  0   
+         659           0           0     {\ldots}                  0                  0   
+         
+              Turkish Restaurant  Vegetarian / Vegan Restaurant  Video Store  \textbackslash{}
+         0                     0                              0            0   
+         1                     0                              0            0   
+         2                     0                              0            0   
+         3                     0                              0            0   
+         4                     0                              0            0   
+         5                     0                              0            0   
+         6                     0                              0            0   
+         7                     0                              0            0   
+         8                     0                              0            0   
+         9                     0                              0            0   
+         10                    0                              0            0   
+         11                    0                              0            0   
+         12                    0                              0            0   
+         13                    0                              0            0   
+         14                    0                              0            0   
+         15                    0                              0            0   
+         16                    0                              0            0   
+         17                    0                              0            0   
+         18                    0                              0            0   
+         19                    0                              0            0   
+         20                    0                              0            0   
+         21                    0                              0            0   
+         22                    0                              0            0   
+         23                    0                              0            0   
+         24                    0                              0            0   
+         25                    0                              0            0   
+         26                    0                              0            0   
+         27                    0                              0            0   
+         28                    0                              0            0   
+         29                    0                              0            0   
+         ..                  {\ldots}                            {\ldots}          {\ldots}   
+         630                   0                              0            0   
+         631                   0                              0            0   
+         632                   0                              0            0   
+         633                   0                              0            0   
+         634                   0                              0            0   
+         635                   0                              0            0   
+         636                   0                              0            0   
+         637                   0                              0            0   
+         638                   0                              0            0   
+         639                   0                              0            0   
+         640                   0                              0            0   
+         641                   0                              0            0   
+         642                   0                              0            0   
+         643                   0                              0            0   
+         644                   0                              0            0   
+         645                   0                              0            0   
+         646                   0                              0            0   
+         647                   0                              0            0   
+         648                   0                              0            0   
+         649                   0                              0            0   
+         650                   0                              0            0   
+         651                   0                              0            0   
+         652                   0                              0            0   
+         653                   0                              0            0   
+         654                   0                              0            0   
+         655                   0                              0            0   
+         656                   0                              0            0   
+         657                   0                              0            0   
+         658                   0                              0            0   
+         659                   0                              0            0   
+         
+              Vietnamese Restaurant  Wine Bar  Wine Shop  Xinjiang Restaurant  \textbackslash{}
+         0                        0         0          0                    0   
+         1                        0         0          0                    0   
+         2                        0         0          0                    0   
+         3                        0         0          0                    0   
+         4                        0         0          0                    0   
+         5                        0         0          0                    0   
+         6                        0         0          0                    0   
+         7                        0         0          0                    0   
+         8                        0         0          0                    0   
+         9                        0         0          0                    0   
+         10                       0         0          0                    0   
+         11                       0         0          0                    0   
+         12                       0         0          0                    0   
+         13                       0         0          0                    0   
+         14                       0         0          0                    0   
+         15                       0         0          0                    0   
+         16                       0         0          0                    0   
+         17                       0         0          0                    0   
+         18                       0         0          0                    0   
+         19                       0         0          0                    0   
+         20                       0         0          0                    0   
+         21                       0         0          0                    0   
+         22                       0         0          0                    0   
+         23                       0         0          0                    0   
+         24                       0         0          0                    0   
+         25                       0         0          0                    0   
+         26                       0         0          0                    0   
+         27                       0         0          0                    0   
+         28                       0         0          0                    0   
+         29                       0         0          0                    0   
+         ..                     {\ldots}       {\ldots}        {\ldots}                  {\ldots}   
+         630                      0         0          0                    0   
+         631                      0         0          0                    0   
+         632                      0         0          0                    0   
+         633                      0         0          0                    0   
+         634                      0         0          0                    0   
+         635                      0         0          0                    0   
+         636                      0         0          0                    0   
+         637                      0         0          0                    0   
+         638                      0         0          0                    0   
+         639                      0         0          0                    0   
+         640                      0         0          0                    0   
+         641                      0         0          0                    0   
+         642                      0         0          0                    0   
+         643                      0         0          0                    0   
+         644                      0         0          0                    0   
+         645                      0         0          0                    0   
+         646                      0         0          0                    0   
+         647                      0         0          0                    0   
+         648                      0         0          0                    0   
+         649                      0         0          0                    0   
+         650                      0         0          0                    0   
+         651                      0         0          0                    0   
+         652                      0         0          0                    0   
+         653                      0         0          0                    0   
+         654                      0         0          0                    0   
+         655                      0         0          0                    0   
+         656                      0         0          0                    0   
+         657                      0         0          0                    0   
+         658                      0         0          0                    0   
+         659                      0         0          0                    0   
+         
+              Yoga Studio  
+         0              0  
+         1              0  
+         2              0  
+         3              0  
+         4              0  
+         5              0  
+         6              0  
+         7              0  
+         8              0  
+         9              0  
+         10             0  
+         11             0  
+         12             0  
+         13             0  
+         14             0  
+         15             0  
+         16             0  
+         17             0  
+         18             0  
+         19             0  
+         20             0  
+         21             0  
+         22             0  
+         23             0  
+         24             0  
+         25             0  
+         26             0  
+         27             0  
+         28             0  
+         29             0  
+         ..           {\ldots}  
+         630            0  
+         631            0  
+         632            0  
+         633            0  
+         634            0  
+         635            0  
+         636            0  
+         637            0  
+         638            0  
+         639            0  
+         640            0  
+         641            0  
+         642            0  
+         643            0  
+         644            0  
+         645            0  
+         646            0  
+         647            0  
+         648            0  
+         649            0  
+         650            0  
+         651            0  
+         652            0  
+         653            0  
+         654            0  
+         655            0  
+         656            0  
+         657            0  
+         658            0  
+         659            0  
+         
+         [660 rows x 162 columns]
+\end{Verbatim}
+            
+    \section{Results}\label{results}
+
+It seems like there is a strong correlation between the number of venues
+and inhabitants / rental prices, even though not all areas (e.g.
+Alstdat) show a strong correlation between the \# of inhabitants and the
+\# of venues. The person starting the business should look for an area
+with a high number of inhabitants and relativley high rental prices.
+This could e.g. be Schwabing.
+
+    \section{Discussion}\label{discussion}
+
+We only took a few factors (rental prices and inhabitants) into
+consideration. There might be many more factors affecting the number of
+venues, e.g. number of tourists or people working in a certain area.
+Also data was not normalized. The analysis is therefore just considered
+a training and additional analysis should be performed to gather
+additional insights as well as to improve the information at hand for
+decision making. We also haven't looked into the nature of the venues
+(e.g. restaurants vs. sports clubs) or the style of e.g. a restaurant.
+
+    \section{Conclusion}\label{conclusion}
+
+First steps were made to get an understanding of which areas offer
+potential for future business owners. The analysis should be considered
+as a starting point and the two factors that were identified are
+probably not enough to get a full understanding of what areas offer
+potential.
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
